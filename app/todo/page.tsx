@@ -5,22 +5,25 @@ import { Button } from '@/components/ui/button';
 import readUserSession from '@/lib/actions';
 import { redirect } from 'next/navigation';
 import SignOut from './components/SignOut';
+import { readTodo } from './actions';
 
 export default async function Page() {
-  const todos = [
+  /*const todos = [
     {
       title: 'Subscribe',
       created_by: '091832901830',
       id: '101981908',
       completed: false,
     },
-  ];
+  ];*/
 
   const { data } = await readUserSession();
 
   if (!data.session) {
     return redirect('auth-server-action');
   }
+
+  const { data: todos } = await readTodo();
 
   return (
     <div className='flex justify-center items-center h-screen'>
